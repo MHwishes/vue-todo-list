@@ -1,28 +1,49 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  // import HelloWorld from './components/HelloWorld.vue';
+  import TodoList from './components/TodoList';
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+  export default {
+    name: 'app',
+    components: {
+      TodoList
+    },
+    data() {
+      return {
+        todos: [{
+          title: 'Todo A',
+          project: 'Project A',
+          done: false,
+        }, {
+          title: 'Todo B',
+          project: 'Project B',
+          done: true,
+        }, {
+          title: 'Todo C',
+          project: 'Project C',
+          done: false,
+        }, {
+          title: 'Todo D',
+          project: 'Project D',
+          done: false,
+        }]
+      };
+    }
+  };
 </script>
 
+<template>
+    <div id="app">
+        <h1>Todos</h1>
+        <todo-list v-bind:todos="todos"></todo-list>
+    </div>
+</template>
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+    }
 </style>
