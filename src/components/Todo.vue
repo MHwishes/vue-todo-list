@@ -1,6 +1,6 @@
 <template>
     <div class="centered">
-        <div class='content'>
+        <div class='content' v-show="!isEditing">
             <h2 class='header'>
                 {{ todo.title }}
             </h2>
@@ -9,15 +9,35 @@
             </p>
             <div class='extra'>
              <span>
-              <a-icon type="form"/>
-              <a-icon type="delete"/>
+              <a-icon type="form" v-on:click="showForm"/>
+              <a-icon type="delete" v-on:click="deleteTodo(todo)"/>
             </span>
             </div>
         </div>
-        <button class='bottom green' v-show="todo.done">
+        <div class="content" v-show="isEditing">
+            <div class='form'>
+                <div class='field'>
+                    <label>Title:</label>
+                    <input type='text'>
+                </div>
+                <div class='field'>
+                    <label>Project: </label>
+                    <input type='text'>
+                </div>
+                <div class='buttons'>
+                    <button class='blue button'>
+                        Create
+                    </button>
+                    <button class='red button' v-on:click="hideForm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class='bottom green' v-show="!isEditing&&todo.done">
             Completed
         </button>
-        <button class='bottom red' v-show="!todo.done">
+        <button class='bottom red' v-show="!isEditing&&!todo.done">
             pending
         </button>
     </div>
@@ -28,7 +48,23 @@
 
   export default {
     props: ['todo'],
-    components: { 'a-icon': Icon }
+    components: { 'a-icon': Icon },
+    data() {
+      return {
+        isEditing: false,
+      };
+    },
+    methods: {
+      showForm: function () {
+        this.isEditing = true;
+      },
+      hideForm() {
+        this.isEditing = false;
+      },
+      deleteTodo: function (todo) {
+        this.$emit('delete-todo', todo);
+      }
+    }
   };
 </script>
 
@@ -50,6 +86,11 @@
         color: red;
     }
 
+    .blue {
+        border: 1px solid #176fff;
+        color: #176fff;
+    }
+
     .meta {
         color: darkgrey;
     }
@@ -59,4 +100,33 @@
         line-height: 48px;
         width: 100%;
     }
+
+    .field {
+        margin: 16px 0;
+    }
+
+    label {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    input {
+        outline: none;
+        border: 1px solid #595959;
+        border-radius: 4px;
+        width: 60%;
+    }
+
+    .button {
+        width: 30%;
+        border-radius: 12px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 24px;
+    }
+
+
 </style>
