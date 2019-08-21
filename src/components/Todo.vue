@@ -1,29 +1,62 @@
 <template>
-    <div class='ui centered card'>
+    <div class="centered">
         <div class='content'>
-            <div class='header'>
+            <h2 class='header'>
                 {{ todo.title }}
-            </div>
-            <div class='meta'>
+            </h2>
+            <p class='meta'>
                 {{ todo.project }}
-            </div>
-            <div class='extra content'>
-            <span class='right floated edit icon'>
-            <i class='edit icon'></i>
-          </span>
+            </p>
+            <div class='extra'>
+             <span>
+              <a-icon type="form"/>
+              <a-icon type="delete"/>
+            </span>
             </div>
         </div>
-        <div class='ui bottom attached green basic button' v-show="todo.done">
+        <button class='bottom green' v-show="todo.done">
             Completed
-        </div>
-        <div class='ui bottom attached red basic button' v-show="!todo.done">
-            Complete
-        </div>
+        </button>
+        <button class='bottom red' v-show="!todo.done">
+            pending
+        </button>
     </div>
 </template>
 
 <script type="text/javascript">
+  import { Icon } from 'ant-design-vue';
+
   export default {
-    props: ['todo']
+    props: ['todo'],
+    components: { 'a-icon': Icon }
   };
 </script>
+
+<style scoped>
+    .centered {
+        margin-bottom: 48px;
+        border: 1px solid #595959;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px #888888;
+    }
+
+    .green {
+        border: 1px solid green;
+        color: green;
+    }
+
+    .red {
+        border: 1px solid red;
+        color: red;
+    }
+
+    .meta {
+        color: darkgrey;
+    }
+
+    .bottom {
+        height: 48px;
+        line-height: 48px;
+        width: 100%;
+    }
+</style>
