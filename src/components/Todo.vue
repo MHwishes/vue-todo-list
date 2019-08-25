@@ -18,14 +18,14 @@
             <div class='form'>
                 <div class='field'>
                     <label>Title:</label>
-                    <input type='text' v-model="todo.title">
+                    <input type='text' placeholder="" v-model="titleText"/>
                 </div>
                 <div class='field'>
                     <label>Project: </label>
-                    <input type='text' v-model="todo.project">
+                    <input type='text' placeholder="" v-model="projectText"/>
                 </div>
                 <div class='buttons'>
-                    <button class='blue button'>
+                    <button class='blue button' v-on:click="editForm(todo)">
                         edit
                     </button>
                     <button class='red button' v-on:click="hideForm">
@@ -52,6 +52,8 @@
     data() {
       return {
         isEditing: false,
+        titleText: this.todo.title,
+        projectText: this.todo.project
       };
     },
     methods: {
@@ -60,6 +62,10 @@
       },
       hideForm() {
         this.isEditing = false;
+      },
+      editForm(todo) {
+        this.isEditing = false;
+        this.$emit('edit-todo', { title: this.titleText, project: this.projectText, done: false }, todo);
       },
       deleteTodo: function (todo) {
         this.$emit('delete-todo', todo);
