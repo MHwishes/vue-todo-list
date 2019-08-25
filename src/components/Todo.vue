@@ -18,15 +18,15 @@
             <div class='form'>
                 <div class='field'>
                     <label>Title:</label>
-                    <input type='text'>
+                    <input type='text' v-model="todo.title">
                 </div>
                 <div class='field'>
                     <label>Project: </label>
-                    <input type='text'>
+                    <input type='text' v-model="todo.project">
                 </div>
                 <div class='buttons'>
                     <button class='blue button'>
-                        Create
+                        edit
                     </button>
                     <button class='red button' v-on:click="hideForm">
                         Cancel
